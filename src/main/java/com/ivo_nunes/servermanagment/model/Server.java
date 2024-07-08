@@ -7,16 +7,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.GenerationType.AUTO;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Server {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = AUTO)
   private Long id;
   @Column(unique = true)
-  @NotEmpty(message = "Ip Address cannot be empty or null")
+  @NotEmpty(message = "IP Address cannot be empty or null")
   private String ipAddress;
   private String name;
   private String memory;
