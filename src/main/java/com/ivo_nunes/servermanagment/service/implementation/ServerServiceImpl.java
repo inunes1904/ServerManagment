@@ -10,12 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Random;
 
 import static com.ivo_nunes.servermanagment.enumeration.Status.SERVER_DOWN;
 import static com.ivo_nunes.servermanagment.enumeration.Status.SERVER_UP;
@@ -47,31 +49,32 @@ public class ServerServiceImpl implements ServerService {
 
   @Override
   public Collection<Server> list(int limit) {
-      log.info("Fetching all servers with the limit of: {}", limit);
+    log.info("Fetching all servers with the limit of: {}", limit);
     return serverRepository.findAll(PageRequest.of(0,limit)).toList();
   }
 
   @Override
   public Optional<Server> get(Long id) {
-      log.info("Fetching the server with the id: {}", id);
+    log.info("Fetching the server with the id: {}", id);
     return serverRepository.findById(id);
   }
 
   @Override
   public Server update(Server server) {
-      log.info("Updating the server with the server: {}", server.getName());
+    log.info("Updating the server with the server: {}", server.getName());
     return serverRepository.save(server);
   }
 
   @Override
   public Boolean delete(Long id) {
-      log.info("Deleting the server with the id: {}", id);
-      serverRepository.deleteById(id);
-      return true;
+    log.info("Deleting the server with the id: {}", id);
+    serverRepository.deleteById(id);
+    return true;
   }
 
   private String setServerImageUrl() {
-    return null;
+    String[] imageNames = {"image1.png", "image2.png","image3.png", "image4.png"};
+    return ServletUriComponentsBuilder.fromCurrentContextPath().path("/server/image/"+imageNames[new Random().nextInt(4)]).toUriString();
   }
 
 }
