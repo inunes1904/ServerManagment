@@ -1,6 +1,5 @@
 package com.ivo_nunes.servermanagment.resource;
 
-import com.ivo_nunes.servermanagment.enumeration.Status;
 import com.ivo_nunes.servermanagment.model.Response;
 import com.ivo_nunes.servermanagment.model.Server;
 import com.ivo_nunes.servermanagment.service.implementation.ServerServiceImpl;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.ivo_nunes.servermanagment.enumeration.Status.SERVER_UP;
 import static java.time.LocalDateTime.now;
@@ -68,7 +66,7 @@ public class ServerResource {
     return ResponseEntity.ok(
       Response.builder()
         .timeStamp(now())
-        .data(Map.of("server", server))
+        .data(Map.of("server", serverService.get(id)))
         .message("SERVER RETRIEVED")
         .status(OK)
         .statusCode(OK.value())
