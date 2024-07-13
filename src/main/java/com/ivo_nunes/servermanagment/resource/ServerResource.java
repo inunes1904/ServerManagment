@@ -4,18 +4,18 @@ import com.ivo_nunes.servermanagment.enumeration.Status;
 import com.ivo_nunes.servermanagment.model.Response;
 import com.ivo_nunes.servermanagment.model.Server;
 import com.ivo_nunes.servermanagment.service.implementation.ServerServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.ivo_nunes.servermanagment.enumeration.Status.SERVER_UP;
 import static java.time.LocalDateTime.now;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -40,7 +40,7 @@ public class ServerResource {
   @GetMapping("/ping/{ipAddress}")
   public ResponseEntity<Response> pingServer(@PathVariable("ipAddress") String ipAddress) throws IOException {
     Server server = serverService.ping(ipAddress);
-   return ResponseEntity.ok(
+    return ResponseEntity.ok(
      Response.builder()
        .timeStamp(now())
        .data(Map.of("servers", serverService.list(30)))
@@ -49,6 +49,31 @@ public class ServerResource {
        .statusCode(OK.value())
        .build()
    );
+  }
+  @PostMapping("/save")
+  public ResponseEntity<Response> pingServer(@RequestBody @Valid Server server) {
+   return ResponseEntity.ok(
+     Response.builder()
+       .timeStamp(now())
+       .data(Map.of("server", serverService.create(server)))
+       .message("SERVER CREATED")
+       .status(CREATED)
+       .statusCode(CREATED.value())
+       .build()
+   );
+  }
+
+  @GetMapping("/get/{id}")
+  public ResponseEntity<Response> pingServer(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+      Response.builder()
+        .timeStamp(now())
+        .data(Map.of("server", server))
+        .message("SERVER RETRIEVED")
+        .status(OK)
+        .statusCode(OK.value())
+        .build()
+    );
   }
 
 }
