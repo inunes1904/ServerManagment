@@ -1,10 +1,12 @@
 package com.ivo_nunes.servermanagment.resource;
 
+import com.ivo_nunes.servermanagment.enumeration.Status;
 import com.ivo_nunes.servermanagment.model.Response;
 import com.ivo_nunes.servermanagment.model.Server;
 import com.ivo_nunes.servermanagment.service.implementation.ServerServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,12 +64,25 @@ public class ServerResource {
   }
 
   @GetMapping("/get/{id}")
-  public ResponseEntity<Response> pingServer(@PathVariable("id") Long id) {
+  public ResponseEntity<Response> getServer(@PathVariable("id") Long id) {
     return ResponseEntity.ok(
       Response.builder()
         .timeStamp(now())
         .data(Map.of("server", serverService.get(id)))
         .message("SERVER RETRIEVED")
+        .status(OK)
+        .statusCode(OK.value())
+        .build()
+    );
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<Response> deleteServer(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+      Response.builder()
+        .timeStamp(now())
+        .data(Map.of("deleted", serverService.delete(id)))
+        .message("SERVER DELETED")
         .status(OK)
         .statusCode(OK.value())
         .build()
