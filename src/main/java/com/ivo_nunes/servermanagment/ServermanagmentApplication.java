@@ -6,6 +6,7 @@ import com.ivo_nunes.servermanagment.repo.ServerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
@@ -15,6 +16,7 @@ public class ServermanagmentApplication {
 		SpringApplication.run(ServermanagmentApplication.class, args);
 	}
 
+  @Bean
   CommandLineRunner run(ServerRepository serverRepository){
     return args -> {
       serverRepository.save(new Server(null,"192.168.1.160", "Ubuntu Linux", "16GB", "Personal PC", "http://localhost:8080/server/image/server1.png", Status.SERVER_UP));
