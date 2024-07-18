@@ -20,6 +20,7 @@ public class ServermanagmentApplication {
   CommandLineRunner run(ServerRepository serverRepository){
     return args -> {
       // Just a comment to erase this after finish
+      //TODO after testing on postman
       serverRepository.save(new Server(null,"192.168.1.160", "Ubuntu Linux", "16GB", "Personal PC", "http://localhost:8080/server/image/server1.png", Status.SERVER_UP));
       serverRepository.save(new Server(null,"192.168.1.161", "Fedora Linux", "16GB", "Personal SERVER", "http://localhost:8080/server/image/server1.png", Status.SERVER_DOWN));
       serverRepository.save(new Server(null,"192.168.1.162", "Ubuntu Linux", "16GB", "Professional PC", "http://localhost:8080/server/image/server1.png", Status.SERVER_UP));
