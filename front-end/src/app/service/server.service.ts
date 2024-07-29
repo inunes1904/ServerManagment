@@ -11,7 +11,7 @@ import {Status} from "../enum/status.enum";
 })
 export class ServerService {
 
-  private readonly apiUrl = 'any';
+  private readonly apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
   }
@@ -57,7 +57,6 @@ export class ServerService {
         tap(console.log),
         catchError(this.handleError)
       );
-
 
 
  delete$ = (serverId: number) => <Observable<CustomResponse>>
