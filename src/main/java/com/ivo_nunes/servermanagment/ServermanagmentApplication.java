@@ -31,7 +31,7 @@ public class ServermanagmentApplication {
       serverRepository.save(new Server(null,"192.168.1.163", "Test Linux", "16GB", "Professional PC", "http://localhost:8080/server/image/server1.png", Status.SERVER_DOWN));
     };
   }
-//STUDY TIME
+//STUDY TIME LETS GO
   @Bean
   public CorsFilter corsFilter(){
     UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
